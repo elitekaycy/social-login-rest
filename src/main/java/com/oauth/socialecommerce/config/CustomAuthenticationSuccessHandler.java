@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -12,8 +13,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 
+/**
+ *
+ * This custom authenticationsuccesshandler is responsible for the redirect and
+ * providing the auth code and registrationId
+ * for further processing
+ **/
+
 @Component
 public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+  @Value("${spring.oauth.redirect-uri}")
+  String redirectUri;
+
   private final OAuth2AuthorizedClientService oAuth2AuthorizedClientService;
 
   public CustomAuthenticationSuccessHandler(OAuth2AuthorizedClientService oAuth2AuthorizedClientService) {
@@ -31,7 +43,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     String authorizationCode = oAuth2AuthorizedClient.getAccessToken().getTokenValue();
 
-    String redirectUrl = "/auth/callback?code="
+    String redirectUrl = "/auth/callback" + "?code="
         + URLEncoder.encode(authorizationCode, "UTF-8")
         + "&registrationId="
         + URLEncoder.encode(oauthToken.getAuthorizedClientRegistrationId(), "UTF-8");

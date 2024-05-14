@@ -8,6 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+/**
+ * This class overrides the default AuthenticationProvider to be able to Create
+ * an authentication object which could be used for jwt
+ */
+
 public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
   private UserDetailsService userDetailsService;

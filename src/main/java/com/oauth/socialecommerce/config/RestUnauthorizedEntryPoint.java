@@ -8,6 +8,12 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import jakarta.servlet.http.HttpServletRequest;
 
+/**
+ * init
+ * Not using anymore because
+ * currently using the bearerTokenAuthenticationEntryPoint
+ *
+ **/
 @Component
 public class RestUnauthorizedEntryPoint implements AuthenticationEntryPoint {
 
