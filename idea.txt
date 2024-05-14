@@ -1,0 +1,2 @@
+- override the session storage of authentication - give the authentication code to the frontend via cookies or url 
+- override the bearer filter chain - read authorization from bearer
